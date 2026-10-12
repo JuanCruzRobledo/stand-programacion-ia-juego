@@ -207,6 +207,41 @@ html,body{margin:0;height:100%;overflow:hidden;background:#0b0d12;color:var(--fg
 .susEnd .bar{height:12px}
 @media (max-width:860px){.intro,.endCols{grid-template-columns:1fr}.endGrid{grid-template-columns:repeat(2,1fr)}.logo{font-size:36px}}
 @media (max-height:760px){#mapWrap{transform:scale(.82);transform-origin:bottom right}#leftCol{transform:scale(.88);transform-origin:top left}#notifs{transform:scale(.9);transform-origin:top right}}
+
+#touchControls,#rotateDevice{display:none}
+.touch-device #game{touch-action:none}
+.touch-device #rotateDevice{position:fixed;inset:0;z-index:200;background:#10121a;align-items:center;justify-content:center;text-align:center;padding:30px;flex-direction:column;gap:16px}
+#rotateDevice strong{font-size:30px;color:#c4f879}#rotateDevice p{font-size:18px;max-width:360px;line-height:1.5}
+.touch-device #touchControls{display:flex;position:fixed;inset:0;pointer-events:none;z-index:35}
+#touchJoystick{position:absolute;bottom:max(12px,env(safe-area-inset-bottom));left:max(14px,env(safe-area-inset-left));width:96px;height:96px;border-radius:50%;background:#151c2dbb;border:2px solid #ffffff55;pointer-events:auto;touch-action:none}
+#joystickThumb{position:absolute;left:29px;top:29px;width:34px;height:34px;border-radius:50%;background:#c4f879aa;pointer-events:none}
+#touchButtons{position:absolute;bottom:max(12px,env(safe-area-inset-bottom));right:max(12px,env(safe-area-inset-right));display:flex;gap:8px;align-items:flex-end;pointer-events:auto}
+#touchButtons button,#touchTop button{font:600 12px system-ui;min-width:46px;min-height:44px;padding:9px;border:1px solid #ffffff55;border-radius:12px;background:#151c2ddd;color:white;touch-action:none}
+#touchInteract{background:#c4f879!important;color:#10121a!important}
+#touchTop{position:absolute;top:max(6px,env(safe-area-inset-top));left:50%;transform:translateX(-50%);display:flex;gap:5px;pointer-events:auto}
+.touch-device .screen{z-index:80;align-items:flex-start;padding:12px;overscroll-behavior:contain}
+.touch-device .card{padding:18px 22px;margin:auto;max-height:none}
+.touch-device .intro{grid-template-columns:1fr 1fr;gap:16px}.touch-device .logo{font-size:30px}
+.touch-device #leftCol{left:6px;top:6px;width:178px;transform:none;gap:4px}
+.touch-device #hudStats{padding:7px 9px}.touch-device #clock{font-size:25px}
+.touch-device .stat{margin:5px 0}.touch-device .bar{height:6px}.touch-device .statHead{font-size:9px;letter-spacing:0}
+.touch-device #dayLabel,.touch-device #susMood,.touch-device #concBox,.touch-device .chips{display:none}
+.touch-device #tasks{padding:5px 8px;max-height:78px;overflow:auto;pointer-events:auto}
+.touch-device .task{font-size:10px;padding:3px 0}.touch-device .task .tt small{display:none}
+.touch-device #notifs{top:58px;right:6px;width:190px;transform:none;gap:4px;max-height:110px;overflow:hidden}
+.touch-device .toast{font-size:10px;padding:5px 8px}.touch-device #mapWrap{display:none}
+.touch-device #mapWrap.mobile-open{display:block;right:8px;bottom:112px;transform:scale(.55);transform-origin:bottom right}
+.touch-device #prompt{bottom:118px;max-width:65vw;white-space:normal;font-size:12px;padding:6px 9px}
+.touch-device #prompt .key{display:none}.touch-device #prompt2{bottom:151px;max-width:65vw;white-space:normal;font-size:10px}
+.touch-device #activity{bottom:181px;width:260px;padding:6px 9px;font-size:11px}
+.touch-device #banner{top:56px;max-width:55vw;white-space:normal;text-align:center;font-size:12px;padding:6px}
+.touch-device #helpHint{display:none}.touch-device #bubble{font-size:11px;max-width:190px}
+.touch-device #callWin{left:190px;bottom:10px;width:180px;padding:5px;transform:scale(.7);transform-origin:bottom left}
+.touch-device #dialog{z-index:60;max-height:90dvh;overflow:auto;width:460px;padding:12px;transform:translate(-50%,-50%)}
+.touch-device #dlgOpts .opt{min-height:44px;font-size:12px;margin-top:5px}.touch-device #dlgFoot{font-size:10px}
+@media(orientation:portrait){.touch-device #rotateDevice{display:flex}.touch-device #touchControls{display:none}}
+@media(max-width:700px) and (orientation:landscape){.touch-device #leftCol{width:150px}.touch-device #notifs{width:155px}.touch-device #touchButtons{gap:4px}.touch-device #touchButtons button{font-size:11px;padding:7px}.touch-device #touchTop button{min-width:38px;padding:5px}}
+
 </style>
 <script type="importmap">
 { "imports": {
@@ -216,6 +251,9 @@ html,body{margin:0;height:100%;overflow:hidden;background:#0b0d12;color:var(--fg
 </script>
 </head>
 <body>
+
+<div id="rotateDevice" role="alert"><strong>Girá el teléfono para jugar</strong><p>Este departamento se recorre mejor en horizontal. La partida queda pausada mientras el teléfono está en vertical.</p><span>↻</span></div>
+
 <canvas id="game" tabindex="0"></canvas>
 
 <div id="loading"><div style="text-align:center">Montando el piso y desordenándolo con cariño…<div class="bar"><i id="loadFill" style="background:#7cf2a6;width:30%"></i></div></div></div>
@@ -293,6 +331,13 @@ html,body{margin:0;height:100%;overflow:hidden;background:#0b0d12;color:var(--fg
     <canvas id="minimap" width="460" height="416"></canvas>
     <div id="roomLabel"><span>📍 <b id="roomName">Dormitorio</b></span><span id="soundState">🔊 M</span></div>
   </div>
+
+<div id="touchControls" aria-label="Controles táctiles">
+ <div id="touchJoystick" role="group" aria-label="Joystick para moverse"><div id="joystickThumb"></div></div>
+ <div id="touchTop"><button id="touchPause" aria-label="Pausar">Pausa</button><button id="touchMap">Mapa</button><button id="touchSound">Sonido</button><button id="touchZoomIn" aria-label="Acercar cámara">+</button><button id="touchZoomOut" aria-label="Alejar cámara">−</button></div>
+ <div id="touchButtons"><button id="touchRun">Correr</button><button id="touchPhone">Móvil</button><button id="touchInteract">Interactuar</button></div>
+</div>
+
   <div id="helpHint">WASD moverse · Shift correr · E interactuar · F móvil · Arrastrar/Q/R cámara · Rueda zoom · Esc pausa</div>
 </div>
 
@@ -746,10 +791,12 @@ const BOOKC = ['#8b2e2e', '#2e4a8b', '#d9a441', '#3f7d5a', '#e8e2d0', '#5b3f7d',
 
 // ============================== MUNDO: renderer, escena, luces ==============================
 const canvas = document.getElementById('game');
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, powerPreference: 'high-performance' });
-renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.75));
+const touchDevice = matchMedia('(pointer: coarse)').matches || navigator.maxTouchPoints > 0;
+document.documentElement.classList.toggle('touch-device', touchDevice);
+const renderer = new THREE.WebGLRenderer({ canvas, antialias: !touchDevice, powerPreference: 'high-performance' });
+renderer.setPixelRatio(Math.min(window.devicePixelRatio, touchDevice ? 1.15 : 1.75));
 renderer.setSize(innerWidth, innerHeight);
-renderer.shadowMap.enabled = true;
+renderer.shadowMap.enabled = !touchDevice;
 renderer.shadowMap.type = THREE.PCFSoftShadowMap;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
 renderer.toneMappingExposure = 1.0;
@@ -2174,6 +2221,8 @@ addEventListener('blur', () => { keys.clear(); if (G.phase === 'play') pauseGame
 canvas.addEventListener('pointerdown', e => { Cam.drag = true; Cam.lx = e.clientX; Cam.ly = e.clientY; canvas.setPointerCapture(e.pointerId); });
 canvas.addEventListener('pointermove', e => { if (!Cam.drag) return; Cam.yaw -= (e.clientX - Cam.lx) * .006; Cam.pitch = clamp(Cam.pitch + (e.clientY - Cam.ly) * .004, .5, 1.38); Cam.lx = e.clientX; Cam.ly = e.clientY; });
 canvas.addEventListener('pointerup', () => Cam.drag = false);
+canvas.addEventListener('pointercancel', () => Cam.drag = false);
+canvas.addEventListener('lostpointercapture', () => Cam.drag = false);
 canvas.addEventListener('contextmenu', e => e.preventDefault());
 addEventListener('wheel', e => { Cam.dist = clamp(Cam.dist + Math.sign(e.deltaY) * .8, 4.5, 16); }, { passive: true });
 addEventListener('resize', () => { renderer.setSize(innerWidth, innerHeight); camera.aspect = innerWidth / innerHeight; camera.updateProjectionMatrix(); });
@@ -2809,6 +2858,48 @@ function onKeyPress(code) {
   else if (G.dialog && (code === 'Digit3' || code === 'Numpad3')) Dialog.choose(2);
 }
 
+
+// Controles móviles: reutilizan las acciones del juego y liberan entradas al interrumpirse.
+function portraitBlocked() { return touchDevice && innerHeight > innerWidth; }
+let joystickPointer = null;
+const touchKeys = new Set();
+function resetTouchInput() {
+ for (const key of touchKeys) keys.delete(key);
+ touchKeys.clear(); joystickPointer = null;
+ $('joystickThumb').style.transform = ''; Cam.drag = false;
+}
+function updateOrientation() {
+ if (portraitBlocked()) { resetTouchInput(); keys.clear(); if (G.phase === 'play') pauseGame(true); }
+}
+function setupTouchControls() {
+ const joy = $('touchJoystick');
+ const setDirection = (e) => {
+  const rect = joy.getBoundingClientRect(), radius = 32;
+  let x = e.clientX - rect.left - rect.width / 2, y = e.clientY - rect.top - rect.height / 2;
+  const distance = Math.hypot(x,y); if (distance > radius) { x *= radius/distance; y *= radius/distance; }
+  for (const key of ['KeyW','KeyS','KeyA','KeyD']) { keys.delete(key); touchKeys.delete(key); }
+  if (G.phase !== 'play' || portraitBlocked() || G.dialog) return;
+  for (const [key,on] of [['KeyW',y < -8],['KeyS',y > 8],['KeyA',x < -8],['KeyD',x > 8]]) if(on){keys.add(key);touchKeys.add(key)}
+  $('joystickThumb').style.transform = 'translate('+x+'px,'+y+'px)';
+ };
+ joy.addEventListener('pointerdown',e=>{e.preventDefault();if(joystickPointer!==null || G.phase!=='play' || portraitBlocked())return;joystickPointer=e.pointerId;try{joy.setPointerCapture(e.pointerId)}catch{}setDirection(e)});
+ joy.addEventListener('pointermove',e=>{if(e.pointerId===joystickPointer){e.preventDefault();setDirection(e)}});
+ for(const type of ['pointerup','pointercancel','lostpointercapture']) joy.addEventListener(type,e=>{if(e.pointerId===joystickPointer)resetTouchInput()});
+ const bind = (id,action) => $(id).addEventListener('click',()=>{if(!portraitBlocked())action()});
+ bind('touchInteract',interact);bind('touchPhone',usePhone);bind('touchPause',()=>{resetTouchInput();onKeyPress('KeyP')});
+ bind('touchSound',()=>onKeyPress('KeyM'));bind('touchMap',()=> $('mapWrap').classList.toggle('mobile-open'));
+ bind('touchZoomIn',()=>Cam.dist=clamp(Cam.dist-.8,4.5,16));bind('touchZoomOut',()=>Cam.dist=clamp(Cam.dist+.8,4.5,16));
+ const run=$('touchRun');run.addEventListener('pointerdown',e=>{e.preventDefault();if(G.phase!=='play'||portraitBlocked())return;keys.add('ShiftLeft');touchKeys.add('ShiftLeft');try{run.setPointerCapture(e.pointerId)}catch{}});
+ for(const type of ['pointerup','pointercancel','lostpointercapture'])run.addEventListener(type,()=>{keys.delete('ShiftLeft');touchKeys.delete('ShiftLeft')});
+ addEventListener('resize',updateOrientation);addEventListener('blur',resetTouchInput);
+ document.addEventListener('visibilitychange',()=>{if(document.hidden){resetTouchInput();if(G.phase==='play')pauseGame(true)}});
+ if(touchDevice){
+  const help=document.createElement('p');help.textContent='Teléfono en horizontal: joystick para moverte, botones para actuar y arrastrar el escenario para girar la cámara.';help.style.cssText='color:#c4f879;font-size:14px;line-height:1.5';$('btnStart').before(help);
+  $('dlgFoot').firstElementChild.textContent='Tocá una respuesta · El tiempo sigue corriendo';
+ }
+ updateOrientation();
+}
+
 // ============================== MOVIMIENTO ==============================
 function updatePlayerMove(dt) {
   const st = Player.st;
@@ -3027,6 +3118,8 @@ function resetWorld() {
   REF.guitar.visible = true; REF.showerWater.visible = false;
 }
 function startGame() {
+  if (portraitBlocked()) return;
+  resetTouchInput();
   Sfx.init();
   S = newState(); resetWorld(); Director.init(); HUD.reset();
   Cam.tx = Player.st.x; Cam.tz = Player.st.z; Cam.dist = 9.6; Cam.pitch = .95; Cam.yaw = .35;
@@ -3040,6 +3133,8 @@ function startGame() {
   canvas.focus();
 }
 function pauseGame(on) {
+  if (!on && portraitBlocked()) return;
+  resetTouchInput();
   if (on && G.phase === 'play') { G.phase = 'paused'; $('pause').classList.remove('hidden'); $('pauseQuip').textContent = pick(['Tu estado en Slack dice "En una reunión". Técnicamente no es mentira.', 'El tiempo se ha detenido. Ojalá en la vida real también.', 'Borja también está en pausa. Mirando Excel.', 'Pausa para el café. El café de verdad, no el del juego.']); keys.clear(); }
   else if (!on && G.phase === 'paused') { G.phase = 'play'; $('pause').classList.add('hidden'); canvas.focus(); }
 }
@@ -3163,6 +3258,7 @@ function init() {
   updateDaylight(CFG.DAY_START + 90);
   $('loading').remove(); $('start').classList.remove('hidden');
   G.phase = 'menu';
+  setupTouchControls();
   $('btnStart').onclick = startGame;
   $('btnResume').onclick = () => pauseGame(false);
   $('btnRestart').onclick = () => { $('pause').classList.add('hidden'); startGame(); };
