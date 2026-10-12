@@ -324,14 +324,14 @@ html,body{margin:0;height:100%;overflow:hidden;background:#0b0d12;color:var(--fg
       <div class="plantC"></div>
       <div class="bossAv" id="bossAv"><div class="neck"></div><div class="body"></div><div class="vest"></div><div class="head"></div><div class="hair"></div><div class="gl l"></div><div class="gl r"></div><div class="br"></div><div class="mouth"></div></div>
       <div class="liveTag">● EN DIRECTO</div>
-      <div class="nameTag">Borja · Eng. Manager</div>
+      <div class="nameTag">Alberto · Eng. Manager</div>
       <div class="selfCam" id="selfCam">🦖<small>Tú (pijama)</small></div>
     </div>
     <div id="callSub"></div>
   </div>
 
   <div id="dialog" class="panel hidden">
-    <div id="dlgFrom">💬 Borja <span id="dlgVia">Slack</span></div>
+    <div id="dlgFrom">💬 Alberto <span id="dlgVia">Slack</span></div>
     <div id="dlgText"></div>
     <div id="dlgOpts"></div>
     <div class="bar" id="dlgTimer"><i id="dlgTimerFill"></i></div>
@@ -359,13 +359,13 @@ html,body{margin:0;height:100%;overflow:hidden;background:#0b0d12;color:var(--fg
     <div class="tag">Simulador de teletrabajo con dignidad negociable.</div>
     <div class="intro">
       <div>
-        <p>Son las <b>9:00</b>. Te has despertado a las 8:58 (récord personal). Tu jornada acaba a las <b>18:00</b>, unos <b>5 minutos de vida real</b>. Necesitas registrar al menos <b>6 horas de trabajo</b> mientras pones lavadoras, ves series, haces siestas y acaricias a <b>Bug</b>, tu gato… sin que <b>Borja, tu manager</b>, sospeche absolutamente nada.</p>
+        <p>Son las <b>9:00</b>. Te has despertado a las 8:58 (récord personal). Tu jornada acaba a las <b>18:00</b>, unos <b>7 minutos de vida real</b>. Necesitas registrar al menos <b>6 horas de trabajo</b> mientras pones lavadoras, ves series, haces siestas y acaricias a <b>Bug</b>, tu gato… sin que <b>Alberto, tu manager</b>, sospeche absolutamente nada.</p>
         <ul>
           <li><span>💻</span>Solo cuenta como trabajo el PC, la pizarra, las reuniones y explicarle bugs al pato de goma.</li>
           <li><span>🔥</span>Tras unos minutos seguidos programando entras en <b>flow</b> (×1.4). El café también ayuda (×1.3). Interrumpirte rompe el flow.</li>
           <li><span>⚡</span>Gestiona tu energía: café, comida, duchas y siestas (de riesgo).</li>
-          <li><span>👀</span>Responde a Borja, entra a las reuniones y vigila tu circulito verde. Si la <b>sospecha</b> llega al 100%, RRHH te invitará a una “charla rápida”.</li>
-          <li><span>🏖️</span>Gana <b>puntos de conciliación</b> haciendo tu vida en horario laboral. Cuanto menos sospeche Borja, más valen.</li>
+          <li><span>👀</span>Responde a Alberto, entra a las reuniones y vigila tu circulito verde. Si la <b>sospecha</b> llega al 100%, RRHH te invitará a una “charla rápida”.</li>
+          <li><span>🏖️</span>Gana <b>puntos de conciliación</b> haciendo tu vida en horario laboral. Cuanto menos sospeche Alberto, más valen.</li>
         </ul>
       </div>
       <div class="ctrls">
@@ -418,7 +418,7 @@ import { mergeGeometries } from 'three/addons/utils/BufferGeometryUtils.js';
 const CFG = {
   DAY_START: 9 * 60,
   DAY_END: 18 * 60,
-  REAL_SECONDS: 300,          // la jornada entera dura ~5 minutos reales
+  REAL_SECONDS: 420,          // siete minutos de juego activo, sin contar pausas
   WORK_GOAL: 360,             // 6 horas de trabajo (en minutos de juego)
   WALL_H: 2.6,
   WALL_T: 0.15,
@@ -427,7 +427,7 @@ const CFG = {
   RUN: 5.0,
   AWAY_GRACE: 12,             // minutos sin tocar el PC antes de salir "Ausente"
 };
-const GM_PER_SEC = (CFG.DAY_END - CFG.DAY_START) / CFG.REAL_SECONDS; // 1.8 min de juego por segundo real
+const GM_PER_SEC = (CFG.DAY_END - CFG.DAY_START) / CFG.REAL_SECONDS; // minutos del juego por segundo activo
 const DESK = { x: 2.3, z: 1.75 };
 
 // ============================== UTILIDADES ==============================
@@ -450,7 +450,7 @@ function say(key, arr) { if (!bags.has(key)) bags.set(key, bag(arr)); return bag
 function tint(hex, l) { const c = new THREE.Color(hex); c.offsetHSL(0, 0, l); return '#' + c.getHexString(); }
 
 // ============================== TEXTOS (humor) ==============================
-const BOSS = 'Borja';
+const BOSS = 'Alberto';
 const WEEKDAYS = [
   ['Lunes', 'el día que dura 48 horas'], ['Martes', 'ni fu ni fa'], ['Miércoles', 'mitad de sprint, mitad de alma'],
   ['Jueves', 'casi viernes, casi feliz'], ['Viernes', 'prohibido desplegar (spoiler: se desplegará)'],
@@ -474,21 +474,21 @@ const THOUGHTS = {
     'Mi cerebro ha entrado en modo avión.', 'Estoy bostezando en 4K.', 'Leo la misma línea por quinta vez.',
   ],
   sus: [
-    'Borja está escribiendo... Borja ha dejado de escribir... miedo.', 'Siento una mirada a través de Slack.',
-    'Creo que Borja sabe cosas.', 'Cara de compilar. Cara de compilar. Cara de compilar.',
+    'Alberto está escribiendo... Alberto ha dejado de escribir... miedo.', 'Siento una mirada a través de Slack.',
+    'Creo que Alberto sabe cosas.', 'Cara de compilar. Cara de compilar. Cara de compilar.',
     'Mi circulito verde es lo único que me separa del paro.', '¿Eso era el sonido de un correo de RRHH?',
   ],
   idle: [
     'Teletrabajo: ahorro 2 horas de transporte para gastarlas en la nevera.', 'Hoy voy a ser productivo. Dentro de cinco minutos.',
     '¿Y si me hago otro café? Por hacer algo.', 'El gato me juzga. El gato siempre me juzga.',
     'Técnicamente estoy "pensando la arquitectura".', 'Debería poner una lavadora. Debería muchas cosas.',
-    'Mi casa, mis normas. Mi sofá, mis siestas.', 'Si Borja llamase ahora mismo... mejor no pensarlo.',
+    'Mi casa, mis normas. Mi sofá, mis siestas.', 'Si Alberto llamase ahora mismo... mejor no pensarlo.',
     'Ese montón de ropa en la silla ya tiene código postal.', 'Paseo por casa como si fuera un open space. Pero sin gente. Ideal.',
   ],
   procrast: [
     'Un capítulo más. Bueno, dos. Es un arco argumental.', 'Esto también es formación. En... cosas.',
     'Me lo merezco: he movido un ticket de columna.', 'Procrastinar es multitarea con mejor marketing.',
-    'Productividad: no. Felicidad: sí.', 'Si Borja pregunta, estoy "investigando".',
+    'Productividad: no. Felicidad: sí.', 'Si Alberto pregunta, estoy "investigando".',
   ],
   pajama: ['Llevo el pijama de dinosaurios. Si hay videollamada, drama.', 'Uniforme de teletrabajo: camisa arriba, pijama abajo. Me falta la camisa.'],
   hungry: ['Mi estómago ha abierto una incidencia P1.', 'Tengo hambre. Y no precisamente de éxito profesional.', 'Podría comerme el teclado. Es mecánico, cruje.'],
@@ -524,7 +524,7 @@ const BOSS_MISSED = [
   'Supongo que estás muy concentrado. Muy. Concentrado.', 'Te he mandado un "?" y otro "?". Ahora un "??".',
 ];
 const MEET_MID = ['Refinamiento del backlog', 'Sync para alinear el sync', 'Brainstorming obligatorio', 'Revisión de OKRs del Q4', 'Workshop de "Cultura de Ownership"', 'Reunión para decidir si hacemos reunión'];
-const MEET_PM = ['Retro: qué salió mal (todo)', 'Demo para negocio', '1:1 con Borja', 'All-hands: el CEO habla de IA', 'Planning poker (todos sacan 13)', 'Postmortem del postmortem'];
+const MEET_PM = ['Retro: qué salió mal (todo)', 'Demo para negocio', '1:1 con Alberto', 'All-hands: el CEO habla de IA', 'Planning poker (todos sacan 13)', 'Postmortem del postmortem'];
 const JARGON = [
   'Tenemos que poner el foco en el <b>impacto</b>...', 'Esto lo llevamos al <b>parking lot</b>.', '¿Me oís? Creo que me he congelado...',
   'Vamos a hacer un <b>deep dive</b> rapidito.', 'Hay que <b>alinear</b> con negocio.', 'Esto lo vemos <b>offline</b>.',
@@ -536,7 +536,7 @@ const JARGON = [
   'Esto podría haber sido un email, pero aquí estamos.', 'Hagamos una ronda rápida. Empezamos por ti. Sí, por ti.',
 ];
 const URGENT = [
-  'Producción caída: el botón de pagar cobra dos veces', 'El cliente dice que "no funciona" (sin más detalles)', 'Hotfix: alguien desplegó un viernes. Era Borja.',
+  'Producción caída: el botón de pagar cobra dos veces', 'El cliente dice que "no funciona" (sin más detalles)', 'Hotfix: alguien desplegó un viernes. Era Alberto.',
   'La IA generó 3.000 líneas y nadie las ha leído', 'Los tests de CI fallan, pero solo los martes', 'El login falla solo en el navegador del CEO',
   'Un certificado SSL ha caducado. Sorpresa anual.', 'Staging tiene datos de producción. Ups.', 'Revisar un PR titulado "cambios pequeños" (+4.812 −3)',
   'Un usuario ha encontrado el bug que dijiste que "nunca pasaría"', 'La demo es en 1 hora y la app no arranca',
@@ -553,7 +553,7 @@ const FLAVOR = [
   ['#general', 'El CEO ha compartido un post sobre la "cultura del esfuerzo". Desde Bali.'],
   ['Jira', 'Se te ha asignado PROJ-4021: "Arreglar lo de ayer". Prioridad: Sí.'],
   ['#random', '¿Alguien sabe salir de Vim? Pregunto por un amigo. Lleva desde el lunes.'],
-  ['Calendario', 'Borja ha movido la reunión de las 16:00 a las 16:00. Motivo: "reorganización".'],
+  ['Calendario', 'Alberto ha movido la reunión de las 16:00 a las 16:00. Motivo: "reorganización".'],
   ['#frontend', 'He centrado un div. Lo dejo aquí para la posteridad.'],
   ['#backend', 'No ha sido el backend. Por si alguien pregunta. Nadie ha preguntado.'],
   ['Notion', 'Lucía ha creado la página "Documentación de la documentación".'],
@@ -563,7 +563,7 @@ const FLAVOR = [
   ['Spotify', 'Tu mix diario: "Lo-fi para fingir que trabajas".'],
   ['#random', 'Hoy es el cumple de Marta. Tarta virtual 🎂 (no sabe a nada).'],
   ['Outlook', 'Tienes 312 correos sin leer. 311 empiezan por "RE: RE: RV:".'],
-  ['#general', 'Las cámaras encendidas fomentan la cercanía. — Borja (cámara apagada)'],
+  ['#general', 'Las cámaras encendidas fomentan la cercanía. — Alberto (cámara apagada)'],
   ['Mamá', '¿Has comido? Te mando un audio de 7 minutos.'],
   ['Vecinos', 'Se ruega no tender ropa interior en el balcón que da a la calle. — El del 3ºA'],
   ['#devops', 'Kubernetes está bien. Kubernetes siempre está bien. (Kubernetes no está bien.)'],
@@ -1296,7 +1296,7 @@ function drawCode(g, w, h, t) {
 }
 function drawCall(g, w, h, t) {
   g.fillStyle = '#121418'; g.fillRect(0, 0, w, h);
-  const tiles = [['Borja', '#3d77d8', true], ['Lucía', '#c55a8a', false], ['Tú', '#6b8fd6', false], ['Pablo (becario)', '#5aa86b', false]];
+  const tiles = [['Alberto', '#3d77d8', true], ['Lucía', '#c55a8a', false], ['Tú', '#6b8fd6', false], ['Pablo (becario)', '#5aa86b', false]];
   tiles.forEach(([n, c, talk], i) => {
     const x = (i % 2) * w / 2 + 4, y = Math.floor(i / 2) * (h - 24) / 2 + 4, tw = w / 2 - 8, th = (h - 24) / 2 - 8;
     g.fillStyle = '#2a2e38'; g.fillRect(x, y, tw, th);
@@ -2315,7 +2315,7 @@ defAct('duck', { label: 'Explicándole el bug al pato de goma', short: 'Debug co
   end: () => { notify('🦆 Pato', say('dduck', DONE_MSG.duck), 'good'); addSus(-2); } });
 defAct('meeting', { label: 'En reunión', short: 'Reuniones', cat: 'trabajo', pose: 'meet', work: 1, en: -.16, sus: -.04, desk: true,
   sub: () => 'Asiente. Asiente más. Di "buen punto".', tick: callTick, start: a => callStart(a, true), stop: (a, done) => meetingStop(a, done) });
-defAct('call', { label: 'Videollamada sorpresa con Borja', short: 'Llamadas con Borja', cat: 'trabajo', pose: 'meet', work: 1, en: -.13, sus: -.06, desk: true,
+defAct('call', { label: 'Videollamada sorpresa con Alberto', short: 'Llamadas con Alberto', cat: 'trabajo', pose: 'meet', work: 1, en: -.13, sus: -.06, desk: true,
   sub: () => 'Mantén contacto visual con la webcam', tick: callTick, start: a => callStart(a, false), stop: (a, done) => meetingStop(a, done) });
 // energía / descanso
 defAct('coffee', { label: 'Preparando café', short: 'Cafés', cat: 'descanso', pose: 'use', dur: 4, prop: 'mug', end: () => {
@@ -2360,7 +2360,7 @@ defAct('laundryUnload', { label: 'Sacando la ropa mojada', short: 'Colada', cat:
 defAct('laundryHang', { label: 'Tendiendo la ropa', short: 'Colada', cat: 'domestico', pose: 'reach', dur: 7, end: () => { S.laundry = 'hung'; S.carrying = null; chore('laundryHang', 80, 'laundry'); } });
 defAct('trashPick', { label: 'Cerrando la bolsa de basura', short: 'Basura', cat: 'domestico', pose: 'crouch', dur: 1.5, end: () => { S.trash = 'carrying'; S.carrying = 'trash'; thought('Ahora a bajarla. Sin cruzarme con el del 3ºA.'); } });
 defAct('trashOut', { label: 'Bajando la basura', short: 'Basura', cat: 'domestico', pose: 'idle', dur: 7, lock: true, lockMsg: 'Estás en el portal. No hay vuelta atrás.', start: () => { Player.root.visible = false; S.out = true; Sfx.door(); },
-  sub: () => 'Fuera de casa. Si Borja llama ahora...', end: () => { S.trash = 'empty'; S.carrying = null; chore('trashOut', 45, 'trash'); Sfx.door(); } });
+  sub: () => 'Fuera de casa. Si Alberto llama ahora...', end: () => { S.trash = 'empty'; S.carrying = null; chore('trashOut', 45, 'trash'); Sfx.door(); } });
 defAct('water_plant', { label: 'Regando plantas', short: 'Regar', cat: 'domestico', pose: 'use', dur: 3, prop: 'can', end: a => { S.plantsThirsty[a.data.p] = false; const t = Tasks.list.find(t => t.kind === 'plant' && t.plant === a.data.p); if (t) Tasks.remove(t); chore('water_plant', 20, 'plant'); } });
 defAct('robot', { label: 'Programando la ruta del robot aspirador', short: 'Robot aspirador', cat: 'domestico', pose: 'crouch', dur: 1, end: () => { S.robotOn = true; S.robotEnd = S.time + 60; Robot.st.homing = false; addConc(5, 'robot'); notify('🤖 DevOps (robot)', 'Robot activado. Lleva tu nombre de usuario de producción. No preguntes.', 'home'); } });
 defAct('robotFree', { label: 'Rescatando al robot de debajo del sofá', short: 'Robot aspirador', cat: 'domestico', pose: 'crouch', dur: 1.5, end: () => { Robot.st.stuck = false; const t = Tasks.find('robot'); if (t) Tasks.remove(t); S.stats.eventsOk++; addConc(6, 'robotFree'); } });
@@ -2372,7 +2372,7 @@ defAct('router', { label: 'Reiniciando el router (apagar y encender)', short: 'R
 defAct('lights', { label: 'Mirando las lucecitas del router', short: 'Router', cat: 'procrastinar', pose: 'stand', dur: 1, end: () => { S.routerCD = S.time + 40; addConc(2, 'lights'); thought('Parpadean. Eso es bueno. Creo.'); } });
 defAct('parcel', { label: 'Recogiendo el paquete', short: 'Paquetes', cat: 'personal', pose: 'stand', dur: 2, end: () => { S.stats.parcels++; const t = Tasks.find('parcel'); if (t) Tasks.remove(t); chore('parcel', 30, 'parcel'); addParcelBox(); } });
 defAct('peek', { label: 'Mirando por la mirilla', short: 'Mirilla', cat: 'procrastinar', pose: 'stand', dur: 1, end: () => thought(pick(['Nadie. Como siempre.', 'El vecino del 3ºA sacando la basura en chanclas. Respeto.', 'Una paloma en el rellano. ¿Cómo ha entrado?'])) });
-defAct('openDoor', { label: 'Abriendo la puerta a Borja', short: 'Visita', cat: 'trabajo', pose: 'stand', dur: 2, end: () => visitResult() });
+defAct('openDoor', { label: 'Abriendo la puerta a Alberto', short: 'Visita', cat: 'trabajo', pose: 'stand', dur: 2, end: () => visitResult() });
 defAct('mom', { label: 'Hablando con mamá', short: 'Mamá', cat: 'personal', pose: 'call', dur: 7, prop: 'phone', sub: () => '"¿Comes bien? ¿Y eso de la nube qué es?"', end: () => { chore('mom', 30); notify('📱 Mamá', pick(['Te quiere. Cree que "trabajas en internet". Te ha mandado una receta.', 'Le has explicado qué es un bug. Ahora cree que tienes cucarachas.', 'Te pregunta si es seguro "eso de trabajar en casa". Mira el sofá. No respondes.']), 'home'); } });
 defAct('phone', { label: 'Haciendo scroll infinito', short: 'Móvil', cat: 'procrastinar', pose: 'phone', prop: 'phone', conc: 1, en: -.02, sub: () => pick(['Un vídeo de un gato. Tu gato te mira, celoso.']) });
 // procrastinación
@@ -2446,7 +2446,7 @@ function callTick(a, dm) {
     const n = noiseSources();
     if (n.length && chance(.55)) { const s = pick(n); addSus(3 + n.length, 'Ruido en la llamada'); S.stats.noises++; bossSay(`Perdona, ¿qué es ese ruido? ¿Es ${s}? 🤨`); }
     const cd = Math.hypot(Cat.st.x - 2.3, Cat.st.z - 1.4);
-    if (cd < 2.2 && chance(.35)) { addSus(-3); bossSay('¡Ay, tu gato! Hola gatitooo 😍 (Borja ha olvidado lo que te iba a preguntar)', 'good'); }
+    if (cd < 2.2 && chance(.35)) { addSus(-3); bossSay('¡Ay, tu gato! Hola gatitooo 😍 (Alberto ha olvidado lo que te iba a preguntar)', 'good'); }
   }
 }
 function meetingStop(a, done) {
@@ -2465,9 +2465,9 @@ function joinMeeting(t) {
 }
 function bossCall(late = false) {
   if (isMeet() || Tasks.find('call')) return;
-  Sfx.call(); HUD.banner('📞 ¡VIDEOLLAMADA DE BORJA! Corre al PC', 'bad', 4);
-  Tasks.add({ kind: 'call', icon: '📞', title: late ? 'Borja: "¿una cosita rápida antes de irte?"' : 'Videollamada entrante de Borja', sub: 'contesta desde el PC', deadline: S.time + (late ? 14 : 16), where: DESK, boss: true, dur: late ? randi(10, 14) : randi(10, 18),
-    expire: () => { S.stats.callsMiss++; S.stats.eventsMiss++; addSus(16, 'Ignorar la videollamada'); bossSay(pick(['Te he llamado. Dos veces. No pasa nada. (Sí pasa.)', 'Llamada perdida de Borja. Y un emoji 🙂 que da miedo.', '¿No estás? Vale. Vale vale vale.'])); } });
+  Sfx.call(); HUD.banner('📞 ¡VIDEOLLAMADA DE Alberto! Corre al PC', 'bad', 4);
+  Tasks.add({ kind: 'call', icon: '📞', title: late ? 'Alberto: "¿una cosita rápida antes de irte?"' : 'Videollamada entrante de Alberto', sub: 'contesta desde el PC', deadline: S.time + (late ? 14 : 16), where: DESK, boss: true, dur: late ? randi(10, 14) : randi(10, 18),
+    expire: () => { S.stats.callsMiss++; S.stats.eventsMiss++; addSus(16, 'Ignorar la videollamada'); bossSay(pick(['Te he llamado. Dos veces. No pasa nada. (Sí pasa.)', 'Llamada perdida de Alberto. Y un emoji 🙂 que da miedo.', '¿No estás? Vale. Vale vale vale.'])); } });
 }
 function answerCall() { const t = Tasks.find('call'); if (!t) return; Tasks.remove(t); S.stats.callsOk++; S.stats.eventsOk++; startAct('call', { anchor: DESK_ANCHOR, dur: t.dur }); }
 
@@ -2475,15 +2475,15 @@ function answerCall() { const t = Tasks.find('call'); if (!t) return; Tasks.remo
 function bossDM() {
   const q = say('dm', DM_QUESTIONS);
   Sfx.knock();
-  Tasks.add({ kind: 'dm', icon: '💬', title: `Borja: "${q.q}"`, sub: 'responde en el PC o con el móvil [F]', deadline: S.time + randi(24, 30), where: DESK, boss: true, q,
-    expire: () => { if (G.dialog && G.dialog.task.kind === 'dm') Dialog.hide(); S.stats.msgsLate++; S.stats.eventsMiss++; addSus(9 + (S.jiggler ? 4 : 0), 'Ignorar a Borja'); bossSay(say('missed', BOSS_MISSED)); } });
-  notify('💬 Borja', q.q, 'boss', 6);
+  Tasks.add({ kind: 'dm', icon: '💬', title: `Alberto: "${q.q}"`, sub: 'responde en el PC o con el móvil [F]', deadline: S.time + randi(24, 30), where: DESK, boss: true, q,
+    expire: () => { if (G.dialog && G.dialog.task.kind === 'dm') Dialog.hide(); S.stats.msgsLate++; S.stats.eventsMiss++; addSus(9 + (S.jiggler ? 4 : 0), 'Ignorar a Alberto'); bossSay(say('missed', BOSS_MISSED)); } });
+  notify('💬 Alberto', q.q, 'boss', 6);
 }
 function bossPing() {
   const p = say('ping', PINGS); Sfx.knock();
-  Tasks.add({ kind: 'ping', icon: '👀', title: `Borja: "${p}"`, sub: 'responde rápido (PC o [F])', deadline: S.time + 14, where: DESK, boss: true,
+  Tasks.add({ kind: 'ping', icon: '👀', title: `Alberto: "${p}"`, sub: 'responde rápido (PC o [F])', deadline: S.time + 14, where: DESK, boss: true,
     expire: () => { S.stats.msgsLate++; S.stats.eventsMiss++; addSus(7 + (S.jiggler ? 3 : 0), 'No contestar'); bossSay(pick(['¿?', '¿Hola?', 'Vale, veo que no estás. Lo apunto.', '...'])); } });
-  notify('💬 Borja', p, 'boss', 5);
+  notify('💬 Alberto', p, 'boss', 5);
 }
 function replyPing(t, phone) {
   Tasks.remove(t); S.stats.msgsOk++; S.stats.eventsOk++; if (phone) S.stats.phoneReplies++;
@@ -2506,7 +2506,7 @@ const Dialog = {
     S.stats.msgsOk++; S.stats.eventsOk++; if (this.phone) S.stats.phoneReplies++;
     let d = o[1] + (this.phone ? 2 : (atDesk() ? -1 : 0));
     slackLog.push({ from: 'Tú', text: o[0], c: '#6b8fd6' });
-    addSus(d, 'Respuesta a Borja');
+    addSus(d, 'Respuesta a Alberto');
     later(1.2, () => bossSay(d <= 0 ? pick(BOSS_GOOD) : pick(BOSS_BAD), d <= 0 ? 'good' : 'boss'));
     if (o[2] && chance(o[2].p)) later(randi(10, 25), () => { addSus(o[2].s, 'Mentira descubierta'); bossSay(o[2].m); });
   },
@@ -2599,8 +2599,8 @@ const WorldEvents = {
   ai() {
     const e = pick([
       ['🤖 Copilot', 'Copilot te ha sugerido borrar la carpeta /src "para simplificar". No le has hecho caso. Esta vez.', 0],
-      ['🤖 IA corporativa', 'La IA de la empresa ha resumido tu trabajo de hoy en una palabra: "presente". Borja ha dado like.', -3],
-      ['🤖 Linter con IA', 'Un linter "inteligente" ha reformateado 3.000 archivos. Tu PR ahora es de 3.000 archivos. Borja lo ha visto.', 3],
+      ['🤖 IA corporativa', 'La IA de la empresa ha resumido tu trabajo de hoy en una palabra: "presente". Alberto ha dado like.', -3],
+      ['🤖 Linter con IA', 'Un linter "inteligente" ha reformateado 3.000 archivos. Tu PR ahora es de 3.000 archivos. Alberto lo ha visto.', 3],
       ['🤖 ChatGPT', 'Le has preguntado a la IA cómo parecer productivo. Te ha recomendado... trabajar. Inútil.', 0],
       ['🤖 Bot de RRHH', 'El chatbot de RRHH te pregunta "¿cómo te sientes hoy del 1 al 10?". Has puesto 7. Mentira piadosa.', -1],
     ]);
@@ -2613,7 +2613,7 @@ function visitResult() {
   if (S.dishes) mess.push('los platos sin fregar'); if (!S.bedMade) mess.push('la cama deshecha (se ve desde el pasillo)'); if (S.trash !== 'empty') mess.push('la basura llena');
   if (S.vomit) mess.push('un regalito del gato'); if (S.laundry === 'basket' || S.laundry === 'done') mess.push('la ropa sin lavar'); if (!S.shirt) mess.push('tu pijama de dinosaurios');
   if (S.tvOn || S.gaming) mess.push('la tele encendida');
-  const d = mess.length * 4 - 7; addSus(d, 'Visita de Borja'); S.stats.eventsOk++;
+  const d = mess.length * 4 - 7; addSus(d, 'Visita de Alberto'); S.stats.eventsOk++;
   if (mess.length <= 1) bossSay('Qué casa más ordenada. Se nota que eres una persona organizada. Te pongo de ejemplo en la all-hands. ☕', 'good');
   else bossSay(`Se toma el café mirando ${mess.slice(0, 3).join(', ')}... "Muy acogedor. Muy... vivido." Se va sin terminar el café.`);
 }
@@ -2622,11 +2622,11 @@ function visitResult() {
 const Director = {
   init() {
     this.meetings = [
-      { name: 'Daily (15 min, 45 en la práctica)', start: 9 * 60 + 20, dur: 15 },
+      { name: 'Daily (15 min, 45 en la práctica)', start: 9 * 60 + 55, dur: 15 },
       { name: pick(MEET_MID), start: 5 * Math.round(randi(11 * 60 + 10, 12 * 60 + 20) / 5), dur: 25 },
       { name: pick(MEET_PM), start: 5 * Math.round(randi(15 * 60 + 15, 16 * 60 + 35) / 5), dur: 25 },
     ].map(m => ({ ...m, end: m.start + m.dur, announced: false }));
-    this.nextBoss = CFG.DAY_START + 42; this.nextWorld = CFG.DAY_START + 30;
+    this.nextBoss = CFG.DAY_START + 70; this.nextWorld = CFG.DAY_START + 55;
     this.hungerAt = randi(12 * 60 + 50, 13 * 60 + 25); this.hungerDone = false; this.visitDone = false;
     this.lateCallAt = 17 * 60 + randi(15, 35); this.lateCall = chance(.7); this.lastBoss = null; this.lastWorld = null;
     this.momRetry = 0;
@@ -2658,29 +2658,29 @@ const Director = {
     else if (k === 'ping') bossPing();
     else if (k === 'call') bossCall();
     else if (k === 'urgent') {
-      const need = randi(22, 36), title = say('urgent', URGENT); Sfx.knock(); HUD.banner('🔥 Tarea urgente de Borja', 'bad', 2.5);
+      const need = randi(22, 36), title = say('urgent', URGENT); Sfx.knock(); HUD.banner('🔥 Tarea urgente de Alberto', 'bad', 2.5);
       Tasks.add({ kind: 'urgent', icon: '🔥', title, need, done: 0, sub: () => { const u = Tasks.find('urgent'); return u ? `trabaja ${Math.ceil(u.need - u.done)} min más en el PC` : ''; }, deadline: t + randi(85, 110), where: DESK, boss: true,
         expire: () => { S.stats.urgentFail++; S.stats.eventsMiss++; addSus(13, 'Tarea urgente sin hacer'); bossSay('¿Cómo va lo urgente? Ah, que no va. Vale. Lo hablamos en el 1:1. 🙂'); } });
       bossSay(`URGENTE: ${title}. ¿Puedes mirarlo? (No es una pregunta)`);
     } else if (k === 'check') {
       if (S.status === 'ausente') { addSus(7, 'Ausente en Slack'); bossSay(pick(['Te veo "Ausente" en Slack desde hace un rato. ¿Todo bien? 🙂', 'Tu circulito está gris. Me preocupa. Profesionalmente.', '¿Sigues con nosotros? Lo digo por el circulito.'])); }
-      else if (S.status === 'offline') { addSus(5, 'Desconectado'); bossSay('No me sale que estés conectado... ¿problemas "técnicos"? (comillas de Borja, no mías)'); }
-      else if (atDesk()) { addSus(-4); notify('👀 Borja', 'Borja ha mirado tu circulito verde y ha asentido, satisfecho. No sabe nada.', 'good'); }
-      else if (S.jiggler) { S.jigMin += 15; notify('🖱️ Mueve-ratones', 'Borja ha comprobado tu estado: "Activo". El mueve-ratones de AliExpress acaba de salvarte.', 'flavor'); }
-      else notify('👀 Borja', 'Borja ha mirado tu estado: "Activo". Por los pelos. Slack aún no se ha dado cuenta de que no estás.', 'flavor');
+      else if (S.status === 'offline') { addSus(5, 'Desconectado'); bossSay('No me sale que estés conectado... ¿problemas "técnicos"? (comillas de Alberto, no mías)'); }
+      else if (atDesk()) { addSus(-4); notify('👀 Alberto', 'Alberto ha mirado tu circulito verde y ha asentido, satisfecho. No sabe nada.', 'good'); }
+      else if (S.jiggler) { S.jigMin += 15; notify('🖱️ Mueve-ratones', 'Alberto ha comprobado tu estado: "Activo". El mueve-ratones de AliExpress acaba de salvarte.', 'flavor'); }
+      else notify('👀 Alberto', 'Alberto ha mirado tu estado: "Activo". Por los pelos. Slack aún no se ha dado cuenta de que no estás.', 'flavor');
     } else if (k === 'review') {
       const expected = (t - CFG.DAY_START) / 540 * CFG.WORK_GOAL * .85;
       if (S.work < expected - 30) { addSus(8, 'Poco progreso en Jira'); bossSay('He mirado Jira y tu ticket sigue en "In progress" desde... ¿el lunes? 🤔'); }
       else if (S.work > expected) { addSus(-5); bossSay('He visto tus commits de hoy. Muy bien. Aunque no entiendo el mensaje "ahora sí que sí".', 'good'); }
-      else notify('📊 Jira', 'Borja ha revisado el tablero. Tu progreso es "aceptable". Como tu sueldo.', 'flavor');
+      else notify('📊 Jira', 'Alberto ha revisado el tablero. Tu progreso es "aceptable". Como tu sueldo.', 'flavor');
     } else if (k === 'visit') {
       this.visitDone = true; const at = t + 40; Sfx.knock();
       bossSay(`Oye, estoy por tu barrio. Me paso a las ${fmtClock(at)} a por un café ☕ y así "conectamos".`);
-      HUD.banner('😱 Borja viene a tu casa en 40 min', 'bad', 3.5);
-      Tasks.add({ kind: 'visit', icon: '🚪', title: `Visita de Borja a las ${fmtClock(at)}`, sub: 'ordena: platos, cama, basura, ropa... y ponte camisa', deadline: at, where: null, boss: true,
-        expire: () => { Sfx.bell(); HUD.banner('🔔 Borja está en la puerta', 'bad', 3);
-          Tasks.add({ kind: 'visitDoor', icon: '🔔', title: 'Borja está llamando al timbre', sub: 'ábrele la puerta', deadline: S.time + 8, where: { x: .4, z: 5.8 }, boss: true,
-            expire: () => { S.stats.eventsMiss++; addSus(12, 'No abrir a Borja'); bossSay('He llamado al timbre... Te he visto por la ventana. Y al gato. Me voy. 🙂'); } }); } });
+      HUD.banner('😱 Alberto viene a tu casa en 40 min', 'bad', 3.5);
+      Tasks.add({ kind: 'visit', icon: '🚪', title: `Visita de Alberto a las ${fmtClock(at)}`, sub: 'ordena: platos, cama, basura, ropa... y ponte camisa', deadline: at, where: null, boss: true,
+        expire: () => { Sfx.bell(); HUD.banner('🔔 Alberto está en la puerta', 'bad', 3);
+          Tasks.add({ kind: 'visitDoor', icon: '🔔', title: 'Alberto está llamando al timbre', sub: 'ábrele la puerta', deadline: S.time + 8, where: { x: .4, z: 5.8 }, boss: true,
+            expire: () => { S.stats.eventsMiss++; addSus(12, 'No abrir a Alberto'); bossSay('He llamado al timbre... Te he visto por la ventana. Y al gato. Me voy. 🙂'); } }); } });
     }
   },
   fireWorld() {
@@ -2724,10 +2724,10 @@ const handsBusy = o => S.carrying ? Object.assign({}, o, { off: `Tienes las mano
 const carryName = () => ({ basket: 'cesto de ropa sucia', wet: 'ropa mojada', trash: 'bolsa de basura' }[S.carrying] || '');
 function pcAction() {
   if (S.catOnKeyboard) return { label: '🐈 Quitar a Bug del teclado', run: () => startAct('shooCat', { anchor: DESK_ANCHOR }), hot: true };
-  const c = Tasks.find('call'); if (c) return { label: '📞 Contestar la videollamada de Borja', run: answerCall, hot: true };
+  const c = Tasks.find('call'); if (c) return { label: '📞 Contestar la videollamada de Alberto', run: answerCall, hot: true };
   const m = Tasks.list.find(t => t.kind === 'meeting' && S.time >= t.meeting.start - 15); if (m) return { label: `📅 Unirse a «${m.meeting.name}»`, run: () => joinMeeting(m), hot: true };
-  const d = Tasks.find('dm'); if (d && !G.dialog) return { label: '💬 Responder a Borja', run: () => openDM(d, false), hot: true };
-  const p = Tasks.find('ping'); if (p) return { label: '💬 Contestar a Borja', run: () => replyPing(p, false), hot: true };
+  const d = Tasks.find('dm'); if (d && !G.dialog) return { label: '💬 Responder a Alberto', run: () => openDM(d, false), hot: true };
+  const p = Tasks.find('ping'); if (p) return { label: '💬 Contestar a Alberto', run: () => replyPing(p, false), hot: true };
   return null;
 }
 function plantIA(k, x, z) {
@@ -2747,7 +2747,7 @@ function setupInteractions() {
   } });
   ia({ id: 'jig', x: 1.15, z: 2.4, r: .7, get() {
     if (S.jigBusted) return { label: 'Mueve-ratones', off: 'Confiscado por IT. DEP.' };
-    return { label: S.jiggler ? '🖱️ Desactivar el mueve-ratones' : '🖱️ Enchufar el mueve-ratones (riesgo)', run: () => { S.jiggler = !S.jiggler; Sfx.click(); notify('🖱️ Gadget', S.jiggler ? 'Mueve-ratones activado: saldrás "Activo" aunque estés en la ducha. Si Borja te escribe y no contestas... será peor.' : 'Mueve-ratones desactivado. Vuelves a ser honesto. Más o menos.', 'flavor'); } };
+    return { label: S.jiggler ? '🖱️ Desactivar el mueve-ratones' : '🖱️ Enchufar el mueve-ratones (riesgo)', run: () => { S.jiggler = !S.jiggler; Sfx.click(); notify('🖱️ Gadget', S.jiggler ? 'Mueve-ratones activado: saldrás "Activo" aunque estés en la ducha. Si Alberto te escribe y no contestas... será peor.' : 'Mueve-ratones desactivado. Vuelves a ser honesto. Más o menos.', 'flavor'); } };
   } });
   ia({ id: 'board', x: .8, z: 3.6, get: () => handsBusy({ label: 'Diseñar arquitectura en la pizarra', run: () => startAct('whiteboard', { anchor: { x: .55, z: 3.6, ry: -Math.PI / 2 } }) }) });
   ia({ id: 'duck', x: 4.0, z: 2.5, r: 1.0, get: () => handsBusy({ label: '🦆 Explicarle el bug al pato de goma', run: () => startAct('duck', { anchor: { x: 4.05, z: 2.5, ry: Math.PI / 2 } }) }) });
@@ -2765,7 +2765,7 @@ function setupInteractions() {
     if (S.routerCD > S.time) return null; return { label: 'Mirar las lucecitas del router', run: () => startAct('lights') };
   } });
   ia({ id: 'door', x: .7, z: 5.8, r: 1.0, get() {
-    if (Tasks.find('visitDoor')) return { label: '🚪 Abrir la puerta a Borja', run: () => startAct('openDoor', { anchor: { x: .55, z: 5.8, ry: -Math.PI / 2 } }), hot: true };
+    if (Tasks.find('visitDoor')) return { label: '🚪 Abrir la puerta a Alberto', run: () => startAct('openDoor', { anchor: { x: .55, z: 5.8, ry: -Math.PI / 2 } }), hot: true };
     if (Tasks.find('parcel')) return handsBusy({ label: '📦 Recoger el paquete', run: () => startAct('parcel', { anchor: { x: .55, z: 5.8, ry: -Math.PI / 2 } }), hot: true });
     if (S.carrying === 'trash') return { label: '🗑️ Bajar la basura (salir de casa)', run: () => startAct('trashOut', { anchor: { x: .55, z: 5.8, ry: -Math.PI / 2 } }) };
     return { label: 'Mirar por la mirilla', run: () => startAct('peek', { anchor: { x: .55, z: 5.8, ry: -Math.PI / 2 } }) };
@@ -2852,7 +2852,7 @@ function usePhone() {
   if (mom) { if (isMeet()) { thought('¿Contestar a mamá en mitad de la reunión? Ni yo soy tan valiente.'); return; } Tasks.remove(mom); S.stats.eventsOk++; startAct('mom'); return; }
   const dm = Tasks.find('dm'); if (dm) { openDM(dm, true); return; }
   const pg = Tasks.find('ping'); if (pg) { replyPing(pg, true); return; }
-  if (Tasks.find('call')) { thought('Borja quiere VER mi fondo "profesional". Al PC, ya.'); return; }
+  if (Tasks.find('call')) { thought('Alberto quiere VER mi fondo "profesional". Al PC, ya.'); return; }
   if (S.act && S.act.def.id === 'phone') { stopAct(false); return; }
   if (S.act && (isMeet() || S.act.def.lock)) { thought('Ahora mismo no puedo mirar el móvil. Bueno, no debería.'); return; }
   startAct('phone');
@@ -2909,7 +2909,7 @@ function setupTouchControls() {
     <h1 id="mobileStartTitle">Ctrl+Alt+Siesta</h1>
     <p class="mobile-tag">Tu oficina está en casa. Tu jefe cree que estás trabajando.</p>
     <div class="mobile-info">
-      <div><h2>Tu misión</h2><p>Superá una jornada de <b>5 minutos</b> y acumulá <b>6 horas de trabajo</b>.</p><p>Recuperá energía, respondé al jefe y evitá que su sospecha llegue al <b>100%</b>.</p></div>
+      <div><h2>Tu misión</h2><p>Superá una jornada de <b>7 minutos</b> y acumulá <b>6 horas de trabajo</b>.</p><p>Recuperá energía, respondé al jefe y evitá que su sospecha llegue al <b>100%</b>.</p></div>
       <div><h2>Controles táctiles</h2><div class="mobile-controls"><b>Joystick:</b> moverte · <b>Correr:</b> mantener pulsado<br><b>Interactuar:</b> usar objetos o levantarte<br><b>Móvil:</b> mirar mensajes · tocá para responder<br><b>Arrastrar escenario:</b> girar cámara<br><b>+ / −:</b> zoom · <b>Pausa:</b> detener la jornada</div></div>
     </div>
     <button class="btn" id="btnStart">Empezar la jornada</button>
@@ -2950,7 +2950,7 @@ const HUD = {
     setTimeout(() => { d.classList.add('out'); setTimeout(() => d.remove(), 400); }, ttl * 1000);
   },
   banner(text, kind = 'bad', secs = 3) { const b = $('banner'); b.textContent = text; b.className = kind; this.bannerT = secs; },
-  callSub(html) { $('callSub').innerHTML = `<b>Borja:</b> ${html}`; this.subT = 3.4; },
+  callSub(html) { $('callSub').innerHTML = `<b>Alberto:</b> ${html}`; this.subT = 3.4; },
   reset() { $('notifs').innerHTML = ''; $('banner').className = 'hidden'; this.bannerT = 0; this.tasksDirty = true; $('bubble').classList.remove('show'); $('floaters').innerHTML = ''; },
   update(dt) {
     const t = S.time;
@@ -2961,7 +2961,7 @@ const HUD = {
     const wi = workInfo(); $('workMult').textContent = wi.m !== 1 ? ` ×${wi.m.toFixed(2)} ${wi.tags.join('')}` : '';
     $('energyFill').style.width = S.energy + '%'; $('energyFill').classList.toggle('low', S.energy < 25); $('energyTxt').textContent = Math.round(S.energy) + (S.energy < 25 ? ' 🧟' : '');
     $('susFill').style.width = S.sus + '%'; $('susTxt').textContent = Math.round(S.sus) + '%'; $('susBar').classList.toggle('hot', S.sus > 70);
-    $('susMood').textContent = S.sus < 20 ? 'Borja confía en ti (error suyo)' : S.sus < 40 ? 'Te tiene en el radar' : S.sus < 60 ? 'Ha abierto tu perfil de Slack dos veces' : S.sus < 80 ? 'Está redactando un correo a RRHH' : '¡Buscando tu sustituto en LinkedIn!';
+    $('susMood').textContent = S.sus < 20 ? 'Alberto confía en ti (error suyo)' : S.sus < 40 ? 'Te tiene en el radar' : S.sus < 60 ? 'Ha abierto tu perfil de Slack dos veces' : S.sus < 80 ? 'Está redactando un correo a RRHH' : '¡Buscando tu sustituto en LinkedIn!';
     $('concVal').textContent = Math.round(S.conc);
     $('danger').style.opacity = S.sus > 70 ? (S.sus - 70) / 30 : 0;
     const stl = { activo: ['#2bd17a', 'Activo'], ausente: ['#9aa0aa', 'Ausente'], reunion: ['#ff4f7a', 'En reunión'], offline: ['#555', 'Desconectado'] }[S.status];
@@ -2991,7 +2991,7 @@ const HUD = {
     // videollamada
     const cw = $('callWin');
     if (isMeet()) {
-      cw.classList.remove('hidden'); $('callName').textContent = a.def.id === 'call' ? 'Videollamada · Borja' : a.label.replace('Reunión: ', '');
+      cw.classList.remove('hidden'); $('callName').textContent = a.def.id === 'call' ? 'Videollamada · Alberto' : a.label.replace('Reunión: ', '');
       const el = Math.floor(a.t); $('callTime').textContent = `${String(Math.floor(el / 60)).padStart(2, '0')}:${String(el % 60).padStart(2, '0')}`;
       $('selfCam').innerHTML = S.shirt ? '👔<small>Tú (presentable)</small>' : '🦖<small>Tú (pijama)</small>';
       this.subT -= dt; if (this.subT <= 0) this.callSub(say('jargon', JARGON));
@@ -3018,7 +3018,7 @@ function notify(from, text, kind = 'flavor', ttl = 6) {
   slackLog.push({ from: from.replace(/^[^\wÁÉÍÓÚáéíóúñÑ#]+/, '') || from, text, c: { boss: '#c33', good: '#2a8', bad: '#c63', home: '#ca3', flavor: '#567' }[kind] || '#567' });
   if (slackLog.length > 30) slackLog.shift();
 }
-function bossSay(text, kind = 'boss') { notify('💬 Borja', text, kind, 7); if (kind === 'boss') Sfx.knock(); else Sfx.ping(); }
+function bossSay(text, kind = 'boss') { notify('💬 Alberto', text, kind, 7); if (kind === 'boss') Sfx.knock(); else Sfx.ping(); }
 const _pv = new THREE.Vector3();
 function toScreen(x, y, z) { _pv.set(x, y, z).project(camera); return { x: (_pv.x * .5 + .5) * innerWidth, y: (-_pv.y * .5 + .5) * innerHeight }; }
 function floatText(text, color) {
@@ -3142,19 +3142,19 @@ function startGame() {
   Sfx.init();
   S = newState(); resetWorld(); Director.init(); HUD.reset();
   Cam.tx = Player.st.x; Cam.tz = Player.st.z; Cam.dist = 9.6; Cam.pitch = .95; Cam.yaw = .35;
-  G.phase = 'play'; G.thoughtT = 5; G.flavorT = 16;
+  G.phase = 'play'; G.thoughtT = 12; G.flavorT = 32;
   $('start').classList.add('hidden'); $('end').classList.add('hidden'); $('pause').classList.add('hidden'); $('hud').classList.remove('hidden');
   $('dayLabel').innerHTML = `${S.weekday[0]}<br><span id="dayTag">${S.weekday[1]}</span>`;
   notify('⏰ Despertador', 'Te has despertado a las 8:58. Récord personal. La jornada empieza en 2 minutos y tu oficina está a 9 metros.', 'home', 7);
-  later(3, () => bossSay('¡Buenos días equipo! Daily a las 9:20, cámaras encendidas 😊🚀'));
-  later(6, () => notify('💡 Consejo', 'Trabaja en el PC del despacho, entra a las reuniones y contesta a Borja. El resto del tiempo... es tuyo. Shhh.', 'good', 8));
-  setTimeout(() => thought('Primero café... ¿o primero fichar? Fichar. Bueno, café.'), 600);
+  later(9, () => bossSay('¡Buenos días equipo! Daily a las 9:55, cámaras encendidas 😊🚀'));
+  later(18, () => notify('💡 Consejo', 'Trabaja en el PC del despacho, entra a las reuniones y contesta a Alberto. El resto del tiempo... es tuyo. Shhh.', 'good', 8));
+  later(5, () => thought('Primero café... ¿o primero fichar? Fichar. Bueno, café.'));
   canvas.focus();
 }
 function pauseGame(on) {
   if (!on && portraitBlocked()) return;
   resetTouchInput();
-  if (on && G.phase === 'play') { G.phase = 'paused'; $('pause').classList.remove('hidden'); $('pauseQuip').textContent = pick(['Tu estado en Slack dice "En una reunión". Técnicamente no es mentira.', 'El tiempo se ha detenido. Ojalá en la vida real también.', 'Borja también está en pausa. Mirando Excel.', 'Pausa para el café. El café de verdad, no el del juego.']); keys.clear(); }
+  if (on && G.phase === 'play') { G.phase = 'paused'; $('pause').classList.remove('hidden'); $('pauseQuip').textContent = pick(['Tu estado en Slack dice "En una reunión". Técnicamente no es mentira.', 'El tiempo se ha detenido. Ojalá en la vida real también.', 'Alberto también está en pausa. Mirando Excel.', 'Pausa para el café. El café de verdad, no el del juego.']); keys.clear(); }
   else if (!on && G.phase === 'paused') { G.phase = 'play'; $('pause').classList.add('hidden'); canvas.focus(); }
 }
 function faint() {
@@ -3186,9 +3186,9 @@ function endGame(result, why) {
   if (result === 'win') Sfx.good(); else Sfx.bad();
   const titles = { win: '✅ Jornada superada', fired: '🔥 DESPEDIDO', hours: '⌛ Jornada incompleta' };
   const subs = {
-    fired: pick(['RRHH te ha enviado una invitación: "Charla rápida (5 min)". Ya sabes lo que significa.', 'Te han despedido. Lo bueno: ahora puedes teletrabajar desde el sofá a tiempo completo.', 'Borja ha publicado en LinkedIn "Por qué el teletrabajo no funciona". Eres el caso práctico.', 'Acceso revocado. Tu usuario de GitHub llora en silencio.']) + (why ? ` <br><small>Gota que colmó el vaso: ${why}.</small>` : ''),
+    fired: pick(['RRHH te ha enviado una invitación: "Charla rápida (5 min)". Ya sabes lo que significa.', 'Te han despedido. Lo bueno: ahora puedes teletrabajar desde el sofá a tiempo completo.', 'Alberto ha publicado en LinkedIn "Por qué el teletrabajo no funciona". Eres el caso práctico.', 'Acceso revocado. Tu usuario de GitHub llora en silencio.']) + (why ? ` <br><small>Gota que colmó el vaso: ${why}.</small>` : ''),
     hours: pick(['No llegaste a las 6 horas. Te han metido en un PIP: Plan de Inmersión en Penitencia.', 'Jira dice que no has hecho nada. Jira nunca miente (Jira miente siempre).', 'Mañana recuperas horas. Y pasado. Y el sábado.']),
-    win: sc.total < 1300 ? pick(['Has trabajado como un ser humano normal. Aburrido, pero legal.', 'Cumpliste. Ni más ni menos. Borja no sabe nada, pero tu planta tampoco ha visto agua.']) : sc.total < 2200 ? pick(['Equilibrio perfecto entre fingir y hacer. Eres el Senior que todos merecemos.', 'Lavadora puesta, gato feliz, ticket cerrado. Eres la conciliación hecha persona.']) : pick(['Lavadoras, siestas, series... y Borja te ha puesto de ejemplo en la all-hands. Leyenda.', 'Has hecho más vida hoy que en un mes de oficina. Y encima te van a subir el sueldo. Probablemente no. Pero podrían.']),
+    win: sc.total < 1300 ? pick(['Has trabajado como un ser humano normal. Aburrido, pero legal.', 'Cumpliste. Ni más ni menos. Alberto no sabe nada, pero tu planta tampoco ha visto agua.']) : sc.total < 2200 ? pick(['Equilibrio perfecto entre fingir y hacer. Eres el Senior que todos merecemos.', 'Lavadora puesta, gato feliz, ticket cerrado. Eres la conciliación hecha persona.']) : pick(['Lavadoras, siestas, series... y Alberto te ha puesto de ejemplo en la all-hands. Leyenda.', 'Has hecho más vida hoy que en un mes de oficina. Y encima te van a subir el sueldo. Probablemente no. Pero podrían.']),
   };
   const logs = Object.values(S.log).filter(l => l.min >= .5 || l.n > 0);
   const merged = {}; for (const l of logs) { const m = merged[l.label] ||= { label: l.label, cat: l.cat, min: 0, n: 0, pts: 0 }; m.min += l.min; m.n += l.n; m.pts += l.pts; }
@@ -3209,10 +3209,10 @@ function endGame(result, why) {
       <div><span>Conciliación × sigilo (×${sc.stealth.toFixed(2)})</span><b>+${sc.concPts}</b></div>
       <div><span>Horas extra (pelota)</span><b>+${sc.extra}</b></div>
       <div><span>Eventos resueltos (${st.eventsOk})</span><b>+${sc.events}</b></div>
-      <div><span>Plantones a Borja</span><b>−${sc.penalty}</b></div>
+      <div><span>Plantones a Alberto</span><b>−${sc.penalty}</b></div>
       ${result !== 'win' ? '<div><span>Penalización por resultado</span><b>×0.4</b></div>' : ''}
       <div class="tot"><span>Total</span><b>${sc.total}</b></div></div>
-      <div class="susEnd"><h3>Sospecha final de Borja</h3><div class="bar"><i style="width:${S.sus}%;background:linear-gradient(90deg,#ffb36b,#ff5d73)"></i></div></div></div></div>
+      <div class="susEnd"><h3>Sospecha final de Alberto</h3><div class="bar"><i style="width:${S.sus}%;background:linear-gradient(90deg,#ffb36b,#ff5d73)"></i></div></div></div></div>
     <button class="btn" id="btnAgain">🔁 Otra jornada (mañana será igual)</button>`;
   $('btnAgain').onclick = startGame;
   setTimeout(() => { $('hud').classList.add('hidden'); $('end').classList.remove('hidden'); }, result === 'fired' ? 900 : 300);
